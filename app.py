@@ -1,8 +1,11 @@
-# app.py (Flask)
 from flask import Flask, request, jsonify
 import requests
 
 app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Vaulted backend is running."
 
 @app.route("/api/stockx")
 def get_stockx_data():
@@ -30,3 +33,7 @@ def get_stockx_data():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# ✅ This part is critical for Railway to run the app properly
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8000)
